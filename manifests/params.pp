@@ -4,7 +4,7 @@
 # It sets variables according to platform.
 #
 class jupyterhub::params {
-  case $::osfamily {
+  case $facts['os']['family'] {
     'Debian': {
       $service_name           = 'jupyterhub'
       $jupyterhub_username    = '_jupyter'
@@ -20,7 +20,7 @@ class jupyterhub::params {
       $allowed_users          = undef
     }
     default: {
-      fail("${::operatingsystem} not supported")
+      fail("${facts['os']['name']} not supported")
     }
   }
 }

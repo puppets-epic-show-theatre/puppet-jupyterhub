@@ -11,17 +11,16 @@
 #   e.g. "Specify one or more upstream ntp servers as an array."
 #
 class jupyterhub (
-  $service_name           = $::jupyterhub::params::service_name,
-  $jupyterhub_username    = $::jupyterhub::params::jupyterhub_username,
-  $jupyterhub_dir         = $::jupyterhub::params::jupyterhub_dir,
-  $pyvenv                 = $::jupyterhub::params::pyvenv,
-  $allowed_users          = $::jupyterhub::params::allowed_users,
-) inherits ::jupyterhub::params {
-
+  $service_name           = $jupyterhub::params::service_name,
+  $jupyterhub_username    = $jupyterhub::params::jupyterhub_username,
+  $jupyterhub_dir         = $jupyterhub::params::jupyterhub_dir,
+  $pyvenv                 = $jupyterhub::params::pyvenv,
+  $allowed_users          = $jupyterhub::params::allowed_users,
+) inherits jupyterhub::params {
   # validate parameters here
 
-  class { '::jupyterhub::install': } ->
-  class { '::jupyterhub::config': } ~>
-  class { '::jupyterhub::service': } ->
-  Class['::jupyterhub']
+  class { 'jupyterhub::install': }
+  -> class { 'jupyterhub::config': }
+  ~> class { 'jupyterhub::service': }
+  -> Class['jupyterhub']
 }

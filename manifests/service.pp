@@ -4,8 +4,7 @@
 # It ensure the service is running.
 #
 class jupyterhub::service {
-
-  service { $::jupyterhub::service_name:
+  service { $jupyterhub::service_name:
     ensure     => running,
     enable     => true,
     hasstatus  => true,
